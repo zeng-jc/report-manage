@@ -4,7 +4,7 @@ import AdminLayout from 'views/layout/AdminLayout.vue'
 import Login from 'views/login/Login.vue'
 import Welcome from 'views/Welcome.vue'
 import Record from 'views/record/Record.vue'
-import Account from 'views/system/Account.vue'
+import Account from 'views/account/Account.vue'
 
 Vue.use(VueRouter)
 

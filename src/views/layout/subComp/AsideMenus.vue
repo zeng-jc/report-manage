@@ -1,6 +1,6 @@
 <template>
   <!-- 侧边栏 -->
-  <el-aside :width="isCollapse ? '66px' : '240px'">
+  <el-aside :width="isCollapse ? '66px' : '220px'">
     <el-header class="logo">
       <img src="@/assets/logo.png" />
     </el-header>
@@ -9,9 +9,9 @@
     </div>
     <!-- 菜单 -->
     <el-menu
-      background-color="#545c64"
+      background-color="#333744"
       text-color="#fff"
-      active-text-color="#ffd04b"
+      active-text-color="#409eff"
       :collapse="isCollapse"
       :collapse-transition="false"
       router
@@ -70,7 +70,7 @@ export default {
   created() {
     this.getMenus()
     //组件被创建的时候从 sessionStorage 中取出上一步存入的“活跃菜单地址”
-    this.activePath = sessionStorage.getItem('activePath')
+    this.activePath = sessionStorage.getItem('activePath') || '/welcome'
   },
 
   methods: {
@@ -108,7 +108,7 @@ export default {
 .el-aside {
   user-select: none; //双击不会选中文字
   .logo {
-    background-color: #545c64;
+    background-color: #373d41;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,7 +118,7 @@ export default {
     }
   }
   .toggleBtn {
-    background-color: #30373d;
+    background-color: #4a5064;
     color: #fff;
     cursor: pointer;
     letter-spacing: 0.2em;

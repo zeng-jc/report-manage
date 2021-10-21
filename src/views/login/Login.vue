@@ -56,7 +56,7 @@ export default {
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
-          { min: 6, max: 16, message: '密码格式错误', trigger: 'blur' },
+          { min: 3, max: 16, message: '密码格式错误', trigger: 'blur' },
         ],
       },
       //表单对象
@@ -70,15 +70,15 @@ export default {
     login() {
       //登录前需要对整个表单规则进行校验检查，需要使用 validate(Boolean,Object)
       this.loginRef.validate(async boo => {
+        console.log(this.loginForm)
         if (!boo) return
-        //注意！！这里虽然是post请求，但携带的是查询字符串参数！！
         const { data: result } = await this.$http({
-          method: 'POST',
+          method: 'post',
           url: 'login',
-          params: this.loginForm,
+          data: this.loginForm,
         })
-
-        if (result.meta.status !== 200) {
+        console.log(result)
+        if (result.status !== 200) {
           this.$message.error('登录失败')
         } else {
           this.$message.success('登录成功')
@@ -87,10 +87,8 @@ export default {
            *  - 项目中除了登录页面，其他页面只能在登陆后访问（通过导航守卫控制）
            */
           sessionStorage.setItem('token', result.data.token)
-
           //2.登录携带用户名
-          sessionStorage.setItem('username', result.data.username)
-
+          sessionStorage.setItem('username', result.data.mg_name)
           //3.跳转到主页，编程式
           this.$router.push('/welcome')
         }

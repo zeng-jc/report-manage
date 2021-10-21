@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Layout from 'views/layout/Layout.vue'
+import AdminLayout from 'views/layout/AdminLayout.vue'
 import Login from 'views/login/Login.vue'
+import Welcome from 'views/Welcome.vue'
+import Record from 'views/record/Record.vue'
+import Account from 'views/system/Account.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +16,28 @@ const routes = [
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/welcome',
+    component: AdminLayout,
+    children: [
+      {
+        path: '/welcome',
+        component: Welcome
+      },
+      {
+        path: '/welcome',
+        component: Welcome
+      },
+      {
+        path: '/system/account',
+        component: Account
+      },
+      {
+        path: '/report/record',
+        component: Record
+      }
+    ]
   }
 ]
 

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  baseURL: '',
+  baseURL: 'http://127.0.0.1:3000/api/admin/v1/',
   timeout: 5000,
   method: 'GET'
 })

@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 
 // 导入全局样式表
-import 'assets/css/global.css'
+import 'assets/css/global.less'
 
 import 'plugin/element.js'
 

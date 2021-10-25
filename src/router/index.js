@@ -2,9 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AdminLayout from 'views/layout/AdminLayout.vue'
 import Login from 'views/login/Login.vue'
+import Account from 'views/account/Account.vue'
 import Welcome from 'views/Welcome.vue'
 import Record from 'views/record/Record.vue'
-import Account from 'views/account/Account.vue'
+import Handle from 'views/handle/Handle.vue'
 
 Vue.use(VueRouter)
 
@@ -26,16 +27,16 @@ const routes = [
         component: Welcome
       },
       {
-        path: '/welcome',
-        component: Welcome
-      },
-      {
         path: '/system/account',
         component: Account
       },
       {
         path: '/report/record',
         component: Record
+      },
+      {
+        path: '/report/handle/:id',
+        component: Handle
       }
     ]
   }

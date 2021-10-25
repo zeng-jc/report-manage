@@ -3,8 +3,8 @@
     <!-- 面包屑导航 -->
     <breadcrumb :breadcrumbItem="['报修管理', '报修记录']" />
     <el-card>
-      <record-search />
-      <record-list :recordList="recordList" />
+      <record-search @getRecordList="getRecordList" @query="recordParams.query = $event" />
+      <record-list :recordList="recordList" @getRecordList="getRecordList" />
       <pagination
         :total="total"
         :currentpage.sync="recordParams.currentpage"
@@ -52,24 +52,17 @@ export default {
   methods: {
     // 获取报修记录列表
     async getRecordList() {
+      console.log(this.recordParams.query)
       const { data: res } = await this.$http({
         url: '/record',
         params: this.recordParams,
       })
+      console.log(res)
       if (res.status !== 200) {
         return this.$message.error('订单列表获取失败')
       }
-      console.log(res.data)
-      const record = res.data.record
-      for (const item of record) {
-        item.address = item.address + item.d_address
-        const index = item.address.indexOf('/')
-        if (index != -1) {
-          item.address = item.address.slice(index + 1)
-        }
-      }
-      this.recordList = record
-      this.total = res.data.totalpage
+      this.recordList = res.data.record
+      this.total = res.data.total
 
       this.recordList.forEach(item => {
         item.rp_time = dateFormart(item.rp_time)

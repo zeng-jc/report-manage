@@ -2,7 +2,7 @@
   <section id="login">
     <div class="login_box">
       <!-- 表单头部 -->
-      <h3 class="login_title">管理系统</h3>
+      <h3 class="login_title">报修管理系统</h3>
       <!-- 表单输入区域 -->
       <el-form class="login_form" :model="loginForm" :rules="loginRules" ref="loginFormRef">
         <!-- 用户名 -->

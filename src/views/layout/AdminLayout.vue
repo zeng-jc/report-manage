@@ -7,9 +7,7 @@
       <el-header style="box-shadow: 0 1px 4px rgb(0 21 41 / 8%)"><nav-bar></nav-bar></el-header>
       <!-- 右侧内容主体 -->
       <el-main>
-        <keep-alive exclude="Params">
-          <router-view></router-view>
-        </keep-alive>
+        <router-view></router-view>
       </el-main>
     </el-container>
   </el-container>

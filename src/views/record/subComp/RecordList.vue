@@ -3,35 +3,68 @@
     <!-- 用户列表区域 -->
     <el-table :data="recordList" border stripe>
       <!-- 下标 -->
-      <el-table-column type="index" width="50"> </el-table-column>
+      <el-table-column type="expand" width="50">
+        <template v-slot:="props">
+          <el-form label-position="left" label-width="100px">
+            <el-form-item label="提交时间：">
+              <span>{{ props.row.rp_time }}</span>
+            </el-form-item>
+            <el-form-item label="姓名：">
+              <span>{{ props.row.u_name }}</span>
+            </el-form-item>
+            <el-form-item label="电话：">
+              <span>{{ props.row.u_mobile }}</span>
+            </el-form-item>
+            <el-form-item label="地址：">
+              <span>{{ props.row.address + '/' + props.row.d_address }}</span>
+            </el-form-item>
+            <el-form-item label="详细描述：">
+              <span>{{ props.row.rp_describe }}</span>
+            </el-form-item>
+            <el-form-item label="是否解决">
+              <el-link type="danger" v-if="props.row.rp_state === 0" @click="toHandle(props.row)">
+                未解决，点击处理
+              </el-link>
+              <el-link type="success" v-else @click="toHandle(props.row)">已解决，点击查看</el-link>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
+      <!-- 提交时间 -->
+      <el-table-column label="提交时间" prop="rp_time" sortable width="150">
+        <template v-slot:="scope">
+          <i class="el-icon-time"></i>
+          <span style="margin-left: 10px">{{ scope.row.rp_time.slice(0, 11) }}</span>
+        </template>
+      </el-table-column>
       <!-- 姓名 -->
-      <el-table-column label="姓名" prop="u_name"> </el-table-column>
+      <el-table-column label="姓名" sortable width="150" prop="u_name"> </el-table-column>
       <!-- 电话 -->
-      <el-table-column label="电话" prop="u_mobile"> </el-table-column>
+      <el-table-column label="电话" prop="u_mobile" width="150"> </el-table-column>
       <!-- 地址 -->
       <el-table-column label="地址" prop="address"> </el-table-column>
-      <!-- 问题描述 -->
-      <el-table-column label="问题描述" prop="rp_describe"> </el-table-column>
-      <!-- 创建时间 -->
-      <el-table-column label="创建时间" prop="rp_time"> </el-table-column>
+      <!-- 报修图片 -->
+      <el-table-column label="报修图片" v-slot:="scope">
+        <el-image style="width: 100px; height: 60px" :src="url" :preview-src-list="srcList"> </el-image>
+      </el-table-column>
       <!-- 状态 -->
-      <el-table-column label="是否解决" width="80">
-        <template v-slot:="slotProps">
-          <!-- 
-              elementUI对el-table-column这个元素内部设置了一个插槽(<slot>)
-              并且在插槽上绑定了一个 :row 属性(v-bind动态绑定),值为当前当前表格整行的数据(值存储在子组件中)
-              在当前的父级作用域中我们可以通过"slotProps"(作用域插槽)接收拿到子组件的值,变量名可自定义
-            -->
-          <el-switch v-model="slotProps.row.rp_state" @change="stateChange(slotProps.row)"> </el-switch>
+      <el-table-column label="是否解决">
+        <template v-slot:="scope">
+          <el-tag type="danger" v-if="Number(scope.row.rp_state) === 0">
+            <el-link type="danger" @click="toHandle(scope.row)">未解决</el-link>
+          </el-tag>
+          <el-tag type="success" v-else>
+            <el-link type="danger" @click="toHandle(scope.row)">已解决</el-link>
+          </el-tag>
         </template>
       </el-table-column>
       <!-- 操作 -->
       <el-table-column label="操作">
-        <template v-slot:="editSlot">
-          <!-- 编辑用户 -->
-          <el-button type="primary" icon="el-icon-edit" size="small " @click="showDialog(editSlot.row)"></el-button>
-          <!-- 删除用户 -->
-          <el-button type="danger" icon="el-icon-delete" size="small " @click="deleteUser(editSlot.row)"></el-button>
+        <template v-slot:="scope">
+          <!-- 编辑 -->
+          <!-- <el-button type="primary" icon="el-icon-edit" size="small "></el-button> -->
+          <!-- 删除 -->
+          <el-button type="danger" icon="el-icon-delete" size="small " @click="deleteRecord(scope.row)"></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -54,69 +87,42 @@ export default {
     return {
       //当前用户ID
       curUserId: '',
+      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      srcList: [
+        'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
+        'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg',
+      ],
     }
   },
   methods: {
-    // 显示对话框（同时拿到当前用户信息）
-    showDialog(curUser) {
-      this.EditDialogVisible = true
-      // 拿到当前修改的用户 id
-      this.curUserId = curUser.id
-      // 当前点击的用户信息赋给对话框中的表单
-      this.editUserForm.username = curUser.username
-      this.editUserForm.email = curUser.email
-      this.editUserForm.mobile = curUser.mobile
-    },
-
-    // 设置用户状态
-    async stateChange(userinfo) {
-      const { data: result } = await this.$http({
-        method: 'put',
-        //这里的动态接口写法模仿的是vue的动态路由
-        //这里 params 携带的是动态参数 key 需要与 api 接口中的 :id、:type 对应
-        //你只需要保证携带的参数 key 需要与 api 接口中的 :xx 一致
-        url: {
-          name: 'userState',
-          params: {
-            id: userinfo.id,
-            type: userinfo.mg_state,
-          },
-        },
-      })
-
-      if (result.meta.status !== 200) {
-        userinfo.mg_state = !userinfo.mg_state
-        return this.$message.error('用户状态修改失败')
-      }
-      this.$message.success(result.meta.msg)
-    },
-
     // 删除用户
-    async deleteUser({ id }) {
-      const res = await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+    async deleteRecord({ u_id }) {
+      const isDel = await this.$confirm('此操作将永久删除该记录, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).catch(err => err)
 
-      if (res !== 'confirm') {
+      if (isDel !== 'confirm') {
         return this.$message.info('删除以取消')
       }
 
-      const { data: result } = await this.$http({
+      const { data: res } = await this.$http({
         method: 'delete',
-        url: {
-          name: 'usersEdit',
-          params: { id },
-        },
+        url: 'record/' + u_id,
       })
-
-      if (result.meta.status !== 200) {
+      console.log(res)
+      if (res.status !== 200) {
         return this.$message.error('系统故障，删除失败!')
       }
+
       //调用父组件的 getUsers 方法
-      this.$emit('getUsers')
+      this.$emit('getRecordList')
       this.$message.success('删除成功!')
+    },
+
+    toHandle({ u_id }) {
+      this.$router.push('/report/handle/' + u_id)
     },
   },
 }
@@ -125,5 +131,11 @@ export default {
 <style lang="less" scoped>
 .userInfoP {
   margin-bottom: 15px;
+}
+
+.el-form-item {
+  margin-left: 15px;
+  margin-bottom: 0;
+  width: 50%;
 }
 </style>

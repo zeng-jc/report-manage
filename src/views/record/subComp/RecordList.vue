@@ -9,13 +9,7 @@
             <el-form-item label="提交时间：">
               <span>{{ props.row.rp_time }}</span>
             </el-form-item>
-            <el-form-item label="姓名：">
-              <span>{{ props.row.u_name }}</span>
-            </el-form-item>
-            <el-form-item label="电话：">
-              <span>{{ props.row.u_mobile }}</span>
-            </el-form-item>
-            <el-form-item label="地址：">
+            <el-form-item label="详细地址：">
               <span>{{ props.row.address + '/' + props.row.d_address }}</span>
             </el-form-item>
             <el-form-item label="详细描述：">
@@ -54,7 +48,7 @@
             <el-link type="danger" @click="toHandle(scope.row)">未解决</el-link>
           </el-tag>
           <el-tag type="success" v-else>
-            <el-link type="danger" @click="toHandle(scope.row)">已解决</el-link>
+            <el-link type="success" @click="toHandle(scope.row)">已解决</el-link>
           </el-tag>
         </template>
       </el-table-column>

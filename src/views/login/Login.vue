@@ -70,7 +70,6 @@ export default {
     login() {
       //登录前需要对整个表单规则进行校验检查，需要使用 validate(Boolean,Object)
       this.loginRef.validate(async boo => {
-        console.log(this.loginForm)
         if (!boo) return
         const { data: result } = await this.$http({
           method: 'post',

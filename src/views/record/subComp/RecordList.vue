@@ -32,9 +32,11 @@
         </template>
       </el-table-column>
       <!-- 姓名 -->
-      <el-table-column label="姓名" sortable width="150" prop="u_name"> </el-table-column>
+      <el-table-column label="姓名" sortable prop="u_name"> </el-table-column>
       <!-- 电话 -->
-      <el-table-column label="电话" prop="u_mobile" width="150"> </el-table-column>
+      <el-table-column label="电话" prop="u_mobile"> </el-table-column>
+      <!-- 身份 -->
+      <el-table-column label="身份" prop="u_identity"> </el-table-column>
       <!-- 地址 -->
       <el-table-column label="地址" prop="address"> </el-table-column>
       <!-- 报修图片 -->

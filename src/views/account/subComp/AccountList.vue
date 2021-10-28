@@ -2,25 +2,6 @@
   <section>
     <!-- 用户列表区域 -->
     <el-table :data="recordList" border stripe>
-      <!-- 下标 -->
-      <el-table-column type="expand" width="50">
-        <template v-slot:="props">
-          <el-form label-position="left" label-width="100px">
-            <el-form-item label="提交时间：">
-              <span>{{ props.row.rp_time }}</span>
-            </el-form-item>
-            <el-form-item label="详细描述：">
-              <span>{{ props.row.rp_describe }}</span>
-            </el-form-item>
-            <el-form-item label="是否解决">
-              <el-link type="danger" v-if="props.row.rp_state === 0" @click="toHandle(props.row)">
-                未解决，点击处理
-              </el-link>
-              <el-link type="success" v-else @click="toHandle(props.row)">已解决，点击查看</el-link>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
       <!-- 提交时间 -->
       <el-table-column label="提交时间" prop="rp_time" sortable width="150">
         <template v-slot:="scope">
@@ -36,6 +17,10 @@
       <el-table-column label="身份" prop="u_identity"> </el-table-column>
       <!-- 地址 -->
       <el-table-column label="地址" prop="address"> </el-table-column>
+      <!-- 报修图片 -->
+      <el-table-column label="报修图片" v-slot:="scope">
+        <el-image style="width: 100px; height: 60px" :src="url" :preview-src-list="srcList"> </el-image>
+      </el-table-column>
       <!-- 状态 -->
       <el-table-column label="是否解决">
         <template v-slot:="scope">
@@ -76,6 +61,11 @@ export default {
     return {
       //当前用户ID
       curUserId: '',
+      url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+      srcList: [
+        'https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg',
+        'https://fuss10.elemecdn.com/1/8e/aeffeb4de74e2fde4bd74fc7b4486jpeg.jpeg',
+      ],
     }
   },
   methods: {

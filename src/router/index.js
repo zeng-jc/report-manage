@@ -6,6 +6,7 @@ import Account from 'views/account/Account.vue'
 import Welcome from 'views/Welcome.vue'
 import Record from 'views/record/Record.vue'
 import Handle from 'views/handle/Handle.vue'
+import Statistics from 'views/statistics/Statistics.vue'
 
 Vue.use(VueRouter)
 
@@ -37,6 +38,10 @@ const routes = [
       {
         path: '/report/handle/:id',
         component: Handle
+      },
+      {
+        path: '/report/statistics',
+        component: Statistics
       }
     ]
   }

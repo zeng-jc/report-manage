@@ -66,6 +66,7 @@ export default {
 
       this.recordList.forEach(item => {
         item.rp_time = dateFormart(item.rp_time)
+        item.address = item.address + '/' + item.d_address
       })
     },
   },

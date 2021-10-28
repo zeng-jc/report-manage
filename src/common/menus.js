@@ -26,6 +26,13 @@ export default [
         id: 22,
         order: null,
         path: 'report/record'
+      },
+      {
+        authName: '报修统计',
+        children: [],
+        id: 23,
+        order: null,
+        path: 'report/statistics'
       }
     ]
   }

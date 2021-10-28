@@ -12,6 +12,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 // 导入字体图标
 import 'assets/fonts/iconfont.css'
 
+// 导入echarts
+import * as echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
 import http from './http'
 Vue.prototype.$http = http
 

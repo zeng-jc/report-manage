@@ -10,15 +10,11 @@
       >
         <el-select v-model="select" slot="prepend" placeholder="请选择">
           <el-option label="姓名" value="u_name"></el-option>
-          <el-option label="地址" value="address"></el-option>
           <el-option label="电话" value="u_mobile"></el-option>
         </el-select>
         <el-button slot="append" icon="el-icon-search" @click="searchBtn"></el-button>
       </el-input>
     </el-col>
-    <!-- <el-col :span="16" style="display: flex; justify-content: end">
-      <el-button type="primary" justify="end" @click="$emit('getRecordList')">获取最新数据</el-button>
-    </el-col> -->
   </el-row>
 </template>
 

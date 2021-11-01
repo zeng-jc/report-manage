@@ -39,7 +39,7 @@ export default {
       recordParams: {
         query: '',
         currentpage: 1,
-        pagesize: 4,
+        pagesize: 10,
       },
       recordList: [],
       total: 0,

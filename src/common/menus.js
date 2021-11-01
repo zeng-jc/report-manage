@@ -32,7 +32,7 @@ export default [
         children: [],
         id: 23,
         order: null,
-        path: 'report/statistics'
+        path: 'report/statistic'
       }
     ]
   }

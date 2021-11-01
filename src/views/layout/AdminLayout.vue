@@ -4,7 +4,9 @@
     <aside-menus></aside-menus>
     <el-container>
       <!-- 头部 -->
-      <el-header style="box-shadow: 0 1px 4px rgb(0 21 41 / 8%)"><nav-bar></nav-bar></el-header>
+      <el-header style="box-shadow: 0 1px 4px rgb(0 21 41 / 8%); border-bottom: 1px solid rgb(0 21 41 / 8%)">
+        <nav-bar> </nav-bar>
+      </el-header>
       <!-- 右侧内容主体 -->
       <el-main>
         <router-view></router-view>

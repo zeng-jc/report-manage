@@ -6,7 +6,7 @@ import Account from 'views/account/Account.vue'
 import Welcome from 'views/Welcome.vue'
 import Record from 'views/record/Record.vue'
 import Handle from 'views/handle/Handle.vue'
-import Statistics from 'views/statistics/Statistics.vue'
+import Statistic from 'views/statistic/Statistic.vue'
 
 Vue.use(VueRouter)
 
@@ -40,8 +40,8 @@ const routes = [
         component: Handle
       },
       {
-        path: '/report/statistics',
-        component: Statistics
+        path: '/report/statistic',
+        component: Statistic
       }
     ]
   }

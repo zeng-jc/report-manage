@@ -27,17 +27,17 @@ export default {
       let myChart = this.$echarts.init(document.getElementById('myChart'))
       // 绘制图表
       myChart.setOption({
-        title: { text: '统计' },
+        title: { text: '总报修次数统计' },
         tooltip: {},
         xAxis: {
-          data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
+          data: ['寝室', '实训楼', '教学楼'],
         },
         yAxis: {},
         series: [
           {
-            name: '销量',
+            name: '报修次数',
             type: 'bar',
-            data: [5, 20, 36, 10, 10, 20],
+            data: [5, 20, 66],
           },
         ],
       })

@@ -5,6 +5,7 @@
  * @returns
  */
 function dateFormart(stamp, format = 'YYYY-MM-DD hh:mm:ss') {
+  if (stamp === '' || stamp === null) return ''
   const date = new Date(stamp)
   const config = {
     YYYY: date.getFullYear(),
